@@ -9,9 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.riwi.Examen.api.dto.request.StudentRequest;
-import com.riwi.Examen.api.dto.response.BasicResponse.ClassBasicSecundaryResponse;
+import com.riwi.Examen.api.dto.response.BasicResponse.ClassBasicResponse;
 import com.riwi.Examen.api.dto.response.primaryResponse.StudentResponse;
+import com.riwi.Examen.domain.entities.ClassEntity;
 import com.riwi.Examen.domain.entities.Student;
+import com.riwi.Examen.domain.repositories.ClassRepository;
 import com.riwi.Examen.domain.repositories.StudentRepository;
 import com.riwi.Examen.infrastructure.abstractService.IStudentService;
 import com.riwi.Examen.utils.enums.SortType;
@@ -72,18 +74,20 @@ public class StudentService implements IStudentService{
     private Student getById(Long id){
         return (Student) this.studentRepository.findById(id).orElseThrow();
     }
-
+private final ClassRepository classRepository;
     private Student requestToEntity(StudentRequest request){
+            ClassEntity classEntity = this.classRepository.findById(request.getClassEntity()).orElseThrow();
         return Student.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .active(request.isActive()).build();
+                .active(request.isActive())
+                .classEntity(classEntity).build();
     }
 
     private StudentResponse entityToResponse(Student entity){
-        ClassBasicSecundaryResponse classBasicSecundary = new ClassBasicSecundaryResponse();
+        ClassBasicResponse classBasicSecundary = new ClassBasicResponse();
         BeanUtils.copyProperties(entity, classBasicSecundary);
-
+        
         return StudentResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())

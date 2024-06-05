@@ -2,7 +2,7 @@ package com.riwi.Examen.api.dto.response.primaryResponse;
 
 import java.time.LocalDateTime;
 
-import com.riwi.Examen.api.dto.response.BasicResponse.ClassBasicSecundaryResponse;
+import com.riwi.Examen.api.dto.response.BasicResponse.ClassBasicResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +19,5 @@ public class StudentResponse {
     private String email;
     private LocalDateTime created_at;
     private boolean active;
-    private ClassBasicSecundaryResponse classEntity;
+    private ClassBasicResponse classEntity;
 }

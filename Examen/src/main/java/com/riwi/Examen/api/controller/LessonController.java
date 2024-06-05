@@ -17,54 +17,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.riwi.Examen.api.dto.request.StudentRequest;
-import com.riwi.Examen.api.dto.response.primaryResponse.StudentResponse;
-import com.riwi.Examen.infrastructure.abstractService.IStudentService;
+import com.riwi.Examen.api.dto.request.LessonRequest;
+import com.riwi.Examen.api.dto.response.primaryResponse.LessonResponse;
+import com.riwi.Examen.infrastructure.service.LessonService;
 import com.riwi.Examen.utils.enums.SortType;
 
 import lombok.AllArgsConstructor;
 
 @Controller
 @RestController
-@RequestMapping(path = "/students")
+@RequestMapping(path = "/lesson")
 @AllArgsConstructor
-public class StudentController {
+public class LessonController {
+    private final LessonService lessonService;
 
-    private final IStudentService studentService;
-
+    
     @GetMapping
-    public ResponseEntity<Page<StudentResponse>> getAllandGetName(
+    public ResponseEntity<Page<LessonResponse>> getAllandGetName(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestHeader(required = false) SortType sortType) {
         if (Objects.isNull(sortType))
             sortType = SortType.NONE;
 
-        return ResponseEntity.ok(this.studentService.getAll(page - 1, size, sortType));
+        return ResponseEntity.ok(this.lessonService.getAll(page - 1, size, sortType));
     }
 
      @GetMapping(path = "/{id}")
-     public ResponseEntity<StudentResponse> get(
+     public ResponseEntity<LessonResponse> get(
              @PathVariable Long id) {
-         return ResponseEntity.ok(this.studentService.findById(id));
+         return ResponseEntity.ok(this.lessonService.findById(id));
      }
 
     @PostMapping
-    public ResponseEntity<StudentResponse> insert(
-            @Validated @RequestBody StudentRequest request) {
-        return ResponseEntity.ok(this.studentService.create(request));
+    public ResponseEntity<LessonResponse> insert(
+            @Validated @RequestBody LessonRequest request) {
+        return ResponseEntity.ok(this.lessonService.create(request));
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<StudentResponse> update(
-            @Validated @RequestBody StudentRequest request,
+    public ResponseEntity<LessonResponse> update(
+            @Validated @RequestBody LessonRequest request,
             @PathVariable Long id) {
-        return ResponseEntity.ok(this.studentService.update(request, id));
+        return ResponseEntity.ok(this.lessonService.update(request, id));
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        this.studentService.delete(id);
+        this.lessonService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

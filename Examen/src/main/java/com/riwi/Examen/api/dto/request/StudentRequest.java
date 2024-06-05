@@ -1,7 +1,7 @@
 package com.riwi.Examen.api.dto.request;
 
 
-import com.riwi.Examen.domain.entities.ClassEntity;
+
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -17,14 +17,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudentRequest {
     @NotBlank(message = "El nombre del estudiante es obligatorio")
-    @Size(min = 20, max = 90, message = "El nombre del estudiante debe tener entre 20 y 90 caracteres")
+    @Size(min = 10, max = 90, message = "El nombre del estudiante debe tener entre 20 y 90 caracteres")
     private String name;
     @NotBlank(message = "El email del estudiante s obligatorio")
-    @Size(min = 30, max = 70, message = "El email del estudiante debe tener entre 30 y 70 caracteres")
+    @Size(min = 10, max = 70, message = "El email del estudiante debe tener entre 30 y 70 caracteres")
     @Email
     private String email;
     private boolean active; 
-    @NotBlank(message = "El id de la clase a la que pertenece el estudiante es obligatorio")
-    @Size(min = 32, max = 40, message = "El id de la clase debe contener entre 32 y 40 caracteres")
-    private ClassEntity classEntity;
+    private Long classEntity;
 }

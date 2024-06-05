@@ -21,10 +21,6 @@ public class LessonRequest {
     @Size(min = 10, max = 500, message = "El contenido de la lección debe tener entre 10 y 500 caracteres")
     private String content;
     private boolean active;
-    @NotBlank(message = "El id de la clase de esta lección es obligatorio")
-    @Size(min = 32, max = 40, message = "El id de la clase debe tener entre 32 y 40 caracteres")
     private Long classEntityId;
-    @NotBlank(message = "El id de la multimedia de esta lección es obligatorio")
-    @Size(min = 32, max = 40, message = "El id del contenido multimedia debe tener entre 32 y 40 caracteres")
-    private Long multimediaId;
+
 }

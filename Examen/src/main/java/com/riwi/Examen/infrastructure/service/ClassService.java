@@ -2,8 +2,7 @@ package com.riwi.Examen.infrastructure.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,12 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.riwi.Examen.api.dto.request.ClassRequest;
-import com.riwi.Examen.api.dto.response.BasicResponse.LessonBasicResponse;
-import com.riwi.Examen.api.dto.response.BasicResponse.StudentBasicResponse;
 import com.riwi.Examen.api.dto.response.primaryResponse.ClassResponse;
 import com.riwi.Examen.domain.entities.ClassEntity;
-import com.riwi.Examen.domain.entities.Lesson;
-import com.riwi.Examen.domain.entities.Student;
 import com.riwi.Examen.domain.repositories.ClassRepository;
 import com.riwi.Examen.infrastructure.abstractService.IClassService;
 import com.riwi.Examen.utils.enums.SortType;
@@ -36,7 +31,6 @@ public class ClassService implements IClassService {
         classEntity.setCreated_at(LocalDateTime.now());
         return this.entityToResponse(this.classRepository.save(classEntity));
     }
-
 
     @Override
     public Page<ClassResponse> getAll(int page, int size, SortType sortType) {
@@ -62,7 +56,7 @@ public class ClassService implements IClassService {
         ClassEntity classUpdate = this.requestToEntity(request);
         classUpdate.setId(id);
         classUpdate.setStudents(classEntity.getStudents());
-        classUpdate.setLessons(classEntity.getLessons());
+        classUpdate.setLesson(classEntity.getLesson());
         return this.entityToResponse(this.classRepository.save(classEntity));
     }
 
@@ -88,15 +82,6 @@ public class ClassService implements IClassService {
 
     private ClassResponse entityToResponse(ClassEntity entity) {
 
-        List<StudentBasicResponse> students = entity.getStudents()
-                .stream()
-                .map(this::entityToResponseStudents)
-                .collect(Collectors.toList());
-
-        List<LessonBasicResponse> lessons = entity.getLessons()
-                .stream()
-                .map(this::entityToResponseLesson)
-                .collect(Collectors.toList());
 
         return ClassResponse.builder()
                 .id(entity.getId())
@@ -104,30 +89,29 @@ public class ClassService implements IClassService {
                 .description(entity.getDescription())
                 .created_at(entity.getCreated_at())
                 .active(entity.isActive())
-                .students(students)
-                .lessons(lessons).build();
-
-    }
-
-    private StudentBasicResponse entityToResponseStudents(Student entity) {
-        return StudentBasicResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .email(entity.getEmail())
-                .created_at(entity.getCreated_at())
-                .active(entity.isActive())
                 .build();
+
     }
 
-    private LessonBasicResponse entityToResponseLesson(Lesson entity) {
-        return LessonBasicResponse.builder()
-                .id(entity.getId())
-                .title(entity.getTitle())
-                .content(entity.getContent())
-                .created_at(entity.getCreated_at())
-                .active(entity.isActive())
-                .build();
-    }
+    // private StudentBasicResponse entityToResponseStudents(Student entity) {
+    //     return StudentBasicResponse.builder()
+    //             .id(entity.getId())
+    //             .name(entity.getName())
+    //             .email(entity.getEmail())
+    //             .created_at(entity.getCreated_at())
+    //             .active(entity.isActive())
+    //             .build();
+    // }
+
+    // private LessonBasicResponse entityToResponseLesson(Lesson entity) {
+    //     return LessonBasicResponse.builder()
+    //             .id(entity.getId())
+    //             .title(entity.getTitle())
+    //             .content(entity.getContent())
+    //             .created_at(entity.getCreated_at())
+    //             .active(entity.isActive())
+    //             .build();
+    // }
 
     @Override
     public ClassResponse findById(Long id) {

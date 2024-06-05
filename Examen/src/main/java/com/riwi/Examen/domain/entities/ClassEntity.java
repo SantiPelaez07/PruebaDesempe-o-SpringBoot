@@ -47,5 +47,5 @@ public class ClassEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "classEntity", orphanRemoval = false)
-    private List<Lesson> lessons;
+    private List<Lesson> lesson;
 }
