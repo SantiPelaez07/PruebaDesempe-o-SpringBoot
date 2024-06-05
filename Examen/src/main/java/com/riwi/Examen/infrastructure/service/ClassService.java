@@ -1,5 +1,6 @@
 package com.riwi.Examen.infrastructure.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,8 +33,10 @@ public class ClassService implements IClassService {
     public ClassResponse create(ClassRequest request) {
         ClassEntity classEntity = this.requestToEntity(request);
         classEntity.setStudents(new ArrayList<>());
+        classEntity.setCreated_at(LocalDateTime.now());
         return this.entityToResponse(this.classRepository.save(classEntity));
     }
+
 
     @Override
     public Page<ClassResponse> getAll(int page, int size, SortType sortType) {
@@ -79,7 +82,6 @@ public class ClassService implements IClassService {
         return ClassEntity.builder()
                 .name(request.getName())
                 .description(request.getDescription())
-                .created_at(request.getCreated_at())
                 .active(request.isActive())
                 .build();
     }

@@ -1,5 +1,7 @@
 package com.riwi.Examen.infrastructure.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,7 @@ public class MultimediaService implements IMultimediaService {
     public MultimediaResponse create(MultimediaRequest request) {
         Multimedia multimedia = this.requestToEntity(request);
         multimedia.setLesson(new Lesson());
+        multimedia.setCreated_at(LocalDateTime.now());
         return this.entityToResponse(this.multimediaRepository.save(multimedia));
     }
 
@@ -72,7 +75,6 @@ public class MultimediaService implements IMultimediaService {
         return Multimedia.builder()
             .type(request.getType())
             .url(request.getUrl())
-            .created_at(request.getCreated_at())
             .active(request.isActive()).build();
     }
 

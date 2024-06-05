@@ -1,6 +1,5 @@
 package com.riwi.Examen.api.dto.request;
 
-import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,9 +19,6 @@ public class ClassRequest {
     @NotBlank(message = "La descripción de la clase es obligatoria")
     @Size(min = 20, max = 500, message = "El nombre debe tener entre 20 y 500 caracteres")
     private String description;
-    @NotBlank(message = "La fecha y hora de la clase es obligatoria")
-    private LocalDateTime created_at;
-    @NotBlank(message = "El estado de la clase es obligatorio")
     private boolean active;
 }
 

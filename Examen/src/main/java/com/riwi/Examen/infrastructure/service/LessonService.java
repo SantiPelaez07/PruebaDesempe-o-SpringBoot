@@ -1,5 +1,6 @@
 package com.riwi.Examen.infrastructure.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +35,7 @@ public class LessonService implements ILessonService {
         Lesson lesson = this.requestToEntity(request);
         lesson.setMultimedias(new ArrayList<>());
         lesson.setClassEntity(new ClassEntity());
+        lesson.setCreated_at(LocalDateTime.now());
         return this.entityToResponse(this.lessonRepository.save(lesson));
     }
 
@@ -78,7 +80,6 @@ public class LessonService implements ILessonService {
         return Lesson.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .created_at(request.getCreated_at())
                 .active(request.isActive())
                 .build();
     }

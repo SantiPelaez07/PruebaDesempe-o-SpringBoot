@@ -1,5 +1,7 @@
 package com.riwi.Examen.infrastructure.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,7 @@ public class StudentService implements IStudentService{
     @Override
     public StudentResponse create(StudentRequest request) {
         Student student = this.requestToEntity(request);
+        student.setCreated_at(LocalDateTime.now());
         return this.entityToResponse(this.studentRepository.save(student));
     }
 
@@ -74,7 +77,6 @@ public class StudentService implements IStudentService{
         return Student.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .created_at(request.getCreated_at())
                 .active(request.isActive()).build();
     }
 
