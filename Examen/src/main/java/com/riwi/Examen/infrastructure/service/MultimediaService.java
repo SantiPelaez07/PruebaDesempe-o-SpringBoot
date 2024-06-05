@@ -1,7 +1,6 @@
 package com.riwi.Examen.infrastructure.service;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,7 +22,6 @@ import lombok.AllArgsConstructor;
 public class MultimediaService implements IMultimediaService {
     
 
-    @Autowired
     private final MultimediaRepository multimediaRepository;
 
     @Override
@@ -90,6 +88,11 @@ public class MultimediaService implements IMultimediaService {
                 .active(entity.isActive())
                 .active(entity.isActive())
                 .lesson(lesson).build();
+    }
+
+    @Override
+    public MultimediaResponse findById(Long id) {
+       return this.entityToResponse(this.getById(id));
     }
 
 }

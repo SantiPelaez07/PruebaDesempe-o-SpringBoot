@@ -1,7 +1,6 @@
 package com.riwi.Examen.infrastructure.service;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,7 +20,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class StudentService implements IStudentService{
 
-    @Autowired
     private final StudentRepository studentRepository;
 
     @Override
@@ -45,6 +43,10 @@ public class StudentService implements IStudentService{
 
         return this.studentRepository.findAll(pagination)
                 .map(this::entityToResponse);
+    }
+
+    public StudentResponse findById(Long id){
+        return this.entityToResponse(this.getById(id));
     }
 
     @Override

@@ -24,11 +24,5 @@ public class ClassRequest {
     private LocalDateTime created_at;
     @NotBlank(message = "El estado de la clase es obligatorio")
     private boolean active;
-    @NotBlank(message = "El id del estudiante de la clase es obligatorio")
-    @Size(min = 32, max = 40, message = "El nombre debe tener entre 32 y 40 caracteres")
-    private Long studentId;
-    @NotBlank(message = "Las lecciones correspondientes de la clase son obligatorias")
-    @Size(min = 32, max = 40, message = "El id de la lección debe tener entre 32 y 40 caracteres")
-    private Long lessonId;
-
 }
+

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,7 +26,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ClassService implements IClassService {
 
-    @Autowired
     private final ClassRepository classRepository;
 
     @Override
@@ -127,6 +125,11 @@ public class ClassService implements IClassService {
                 .created_at(entity.getCreated_at())
                 .active(entity.isActive())
                 .build();
+    }
+
+    @Override
+    public ClassResponse findById(Long id) {
+        return this.entityToResponse(this.getById(id));
     }
 
 }

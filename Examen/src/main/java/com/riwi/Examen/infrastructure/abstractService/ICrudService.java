@@ -9,4 +9,5 @@ public interface ICrudService <RQ, RS, ID>{
     public Page<RS> getAll(int page, int size, SortType sortType);
     public RS update(RQ request, Long id);
     public void delete(ID id);
+    public RS findById(ID id);
 }
